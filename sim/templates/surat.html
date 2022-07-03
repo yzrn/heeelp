@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block konten%}
+
+<h1>Letter</h1>
+
+<div class="jumbotron"> 
+    <!--form surat--> 
+   
+      <caption>Inbox</caption>
+      <thead>
+        <form method="POST">
+          {{form.hidden_tag()}}
+          <div class="form-group">
+            {{form.date_surat.label(class="form-control-label")}}
+            {% if form.date_surat.errors %}
+                 {{form.date_surat(class="form-control is-invalid")}}
+      
+                 <div class="invalid">
+                   {%for error in form.date_surat.errors %}
+                   <span>{{error}}</span>
+                   {% endfor %}
+                 </div>
+            {%else%}
+              {{form.date_surat(class="form-control")}}
+      
+            {%endif%}
+          </div>
+          <div class="form-group">
+            {{form.kategori.label(class="form-control-label")}}
+            {% if form.kategori.errors %}
+                 {{form.kategori(class="form-control is-invalid")}}
+      
+                 <div class="invalid">
+                   {%for error in form.kategori.errors %}
+                   <span>{{error}}</span>
+                   {% endfor %}
+                 </div>
+            {%else%}
+              {{form.kategori(class="form-control")}}
+      
+            {%endif%}
+          </div>
+      
+          <div class="form-group">
+            {{form.detail_pengaduan.label(class="form-control-label")}}
+            {% if form.detail_pengaduan.errors %}
+                 {{form.detail_pengaduan(class="form-control is-invalid")}}
+      
+                 <div class="invalid">
+                   {%for error in form.detail_pengaduan.errors %}
+                   <span>{{error}}</span>
+                   {% endfor %}
+                 </div>
+            {%else%}
+              {{form.detail_pengaduan(class="form-control")}}
+      
+            {%endif%}
+          </div>
+        
+           
+           <button type="submit" class="btn btn-primary">create</button>
+         </form>
+       
+      </form>
+   
+
+      <table class="table table-success table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tgl Post</th>
+            <th scope="col">date surat</th>
+            <th scope="col">Kategori</th>
+            <th scope="col">Update</th>
+            <th scope="col">hapus</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in dt_pengaduan %}
+          <tr>
+            <th><a href="{{ url_for('rmahasiswa.update_surat', ed_id=data.id)}}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-arrow-down" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 5a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5A.5.5 0 0 1 8 5z"/>
+                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+              </svg>
+            </a>
+            </th>
+            <td>{{data.tgl_post}}</td>
+            <td>{{data.date_surat}}</td>
+            <td>{{data.kategori}}</td>
+            <td><a class="btn btn-outline-info" href="{{ url_for('rmahasiswa.update_surat', ed_id=data.id)}}">Update</a></td>
+            <td><a class="btn btn-outline-danger" href="/delete/{{data.id}}" onclick="return confirm('apakah anda ingin menghapus data')">hapus</a></td>
+          </tr>
+        {% endfor %} 
+             
+        </tbody>
+      </table>
+
+      {% endblock%}  
